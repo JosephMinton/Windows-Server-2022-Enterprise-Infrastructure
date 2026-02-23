@@ -1,5 +1,5 @@
 # Windows Server 2022 Enterprise Infrastructure
-Security Governance via Group Policy Management
+<h1>Security Governance via Group Policy Management</h1>
 
 <h2>Description</h2>
 This lab is Part II of a multi part Active Directory home lab series.
