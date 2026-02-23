@@ -1,4 +1,4 @@
-<h1><a href="https://www.linkedin.com/in/josephkdminton/">Joseph Minton</a>'s Windows Server 2022 Enterprise Infrastructure 🖥</h1>
+<h1><a href="https://www.linkedin.com/in/josephkdminton/">Joseph Minton</a>'s Enterprise Active Directory Security Governance Lab 🖥</h1>
 
 This project simulates an enterprise Windows domain environment. The project focuses on building foundational infrastructure and implementing centralized security governance using Active Directory and Group Policy.
 
