@@ -71,7 +71,7 @@ This reinforces centralized credential security and aligns with baseline enterpr
 <ul>
 <li><strong>Preferences allow flexibility</strong></li>
 <li><strong>Settings can be changed or removed without strict enforcement</strong></li>
-<li><strong>This mirrors real-world environments where mapped drives may vary by role or department</strong></li>
+<li><strong>This mirrors real world environments where mapped drives may vary by role or department</strong></li>
 </ul>
 <p>This demonstrates the difference between user convenience configurations and security enforcement.</p>
 
@@ -102,7 +102,7 @@ This reinforces centralized credential security and aligns with baseline enterpr
 <h2>Notes</h2>
 <p>This policy was intentionally placed under User Configuration → Policies because:</p>
 <ul>
-<li><strong>The setting is user-facing</strong></li>
+<li><strong>The setting is user facing</strong></li>
 <li><strong>Administrative enforcement is required</strong></li>
 <li><strong>Users should not be able to override or modify the wallpaper</strong></li>
 </ul>
@@ -201,7 +201,7 @@ This reflects common enterprise security practices where users are limited from 
 <ul>
 <li><strong>GPO placement matters: User vs Computer Configuration determines scope and impact</li>
 <li><strong>Policies enforce non-negotiable rules, while Preferences allow flexibility</li>
-<li><strong>Naming GPOs clearly improves longt erm manageability</li>
+<li><strong>Naming GPOs clearly improves long term manageability</li>
 <li><strong>Many enterprise security controls are implemented silently through GPOs</li>
 <li><strong>Small configuration choices (like USB access or lockout thresholds) have large security implications</li>
 </ul>
