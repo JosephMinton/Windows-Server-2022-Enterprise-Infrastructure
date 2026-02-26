@@ -17,11 +17,9 @@ Languages and Utilities Used</li>
 
 <h2>Languages and Utilities Used</h2>
 
-<p>
 - <b>VMware Workstation</b> 
 - <b>Server Windows 2022</b>
 - <b>Group Policy Management Console (GPMC)</b>
-</p>
 
 <p align="center">
 First visual of Group Policy Management: <br/>
