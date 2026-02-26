@@ -1,28 +1,26 @@
 # Enterprise Active Directory Security Governance Lab
-<h1>Domain Integration & Security Policy Verification</h1>
+<h1>Security Governance via Group Policy Management</h1>
 
 <h2>Description</h2>
-This lab is Part III of a multi-part Active Directory home lab series. This phase focuses on the integration of a Windows 11 client machine into the domain environment, ensuring proper DNS resolution, and verifying that the security policies (GPOs) configured in Part II are successfully enforced on end-user workstations.
+This lab is Part II of a multi part Active Directory home lab series. In this phase, I focused on creating, configuring, and enforcing Group Policy Objects (GPOs) to centrally manage user and computer behavior within a domain environment.
 <br />
 
 <h2>Objective</h2>
 
-<p>Successfully bridge the gap between server configuration and client-side enforcement to simulate a production Enterprise environment.</p>
+<p>Understand where policies live (User vs Computer Configuration)</p>
 <ul>
-<li><strong>Establish Network Connectivity: Configure static IP and DNS settings on the Domain Controller to act as the primary name resolver.</li>
-<li><strong>Perform a Domain Join: Connect a Windows 11 Pro/Enterprise client to the active domain.</li>
-<li><strong>Validate GPO Inheritance: Move the client machine into the correct Organizational Unit (OU) to receive targeted policies.</li>
-<li><strong>Force Policy Updates: Demonstrate the use of command-line utilities to trigger immediate security enforcement.</li>
+<li><strong>Learn when to use Policies vs Preferences</li>
+<li><strong>Apply security focused controls commonly used in enterprise environments</li>
+<li><strong>Reinforce the concept of administrative enforcement vs user choice
+Languages and Utilities Used</li>
 </ul>
 
 <h2>Languages and Utilities Used</h2>
 
 <p>
 - <b>VMware Workstation</b> 
-- <b>Windows Server 2022 (Domain Controller)</b>
-- <b>Windows 11 Pro/Enterprise (Client VM)</b>
-- <b>Command Prompt (CMD)</b>
-- <b>PowerShell</b>
+- <b>Server Windows 2022</b>
+- <b>Group Policy Management Console (GPMC)</b>
 </p>
 
 <p align="center">
