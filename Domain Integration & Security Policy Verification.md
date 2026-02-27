@@ -2,17 +2,17 @@
 <h1>Domain Integration & Security Policy Verification</h1>
 
 <h2>Description</h2>
-This lab is Part III of a multi-part Active Directory home lab series. This phase focuses on the integration of a Windows 11 client machine into the domain environment, ensuring proper DNS resolution, and verifying that the security policies (GPOs) configured in Part II are successfully enforced on end-user workstations.
+This lab is Part III of a multipart Active Directory home lab series. This phase focuses on the integration of a Windows 11 client machine into the domain environment, ensuring proper DNS resolution, and verifying that the security policies (GPOs) configured in Part II are successfully enforced on end user workstations.
 <br />
 
 <h2>Objective</h2>
 
-<p>Successfully bridge the gap between server configuration and client-side enforcement to simulate a production Enterprise environment.</p>
+<p>Successfully bridge the gap between server configuration and client side enforcement to simulate a production Enterprise environment.</p>
 <ul>
 <li><strong>Establish Network Connectivity: Configure static IP and DNS settings on the Domain Controller to act as the primary name resolver.</li>
 <li><strong>Perform a Domain Join: Connect a Windows 11 Pro/Enterprise client to the active domain.</li>
 <li><strong>Validate GPO Inheritance: Move the client machine into the correct Organizational Unit (OU) to receive targeted policies.</li>
-<li><strong>Force Policy Updates: Demonstrate the use of command-line utilities to trigger immediate security enforcement.</li>
+<li><strong>Force Policy Updates: Demonstrate the use of command line utilities to trigger immediate security enforcement.</li>
 </ul>
 
 <h2>Languages and Utilities Used</h2>
@@ -43,14 +43,14 @@ Problem Encountered An incorrect IP address was initially assigned, and the Defa
 <img src="https://i.imgur.com/hsZYLDe.png"/>
 <br />
  <br><br>
-<p>Remediation Workflow Instead of using the non-functional GUI, I resolved the conflict via the following PowerShell sequence:</p>
+<p>Remediation Workflow Instead of using the nonfunctional GUI, I resolved the conflict via the following PowerShell sequence:</p>
 <p>1. Identify the incorrect assignment
 ipconfig /all 
 
 2. Remove the incorrect IP to clear the interface conflict
 Remove-NetIPAddress -InterfaceIndex 6 -IPAddress [Incorrect_IP]
 
-3. Re-apply the correct static IP with the Default Gateway included
+3. Reapply the correct static IP with the Default Gateway included
 New-NetIPAddress -InterfaceIndex 6 -IPAddress 192.168.x.x -PrefixLength 24 -DefaultGateway 192.168.x.1
 
 4. Re-configure DNS for Active Directory functionality
@@ -127,7 +127,7 @@ Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("127.0.0.1", "8.8
 
 <h1>Key Takeaways</h1>
 <ul>
-<li><strong>DNS is the Foundation: 90% of domain join failures are DNS-related; the client must point to the DC</li>
+<li><strong>DNS is the Foundation: 90% of domain join failures are DNS related; the client must point to the DC</li>
 <li><strong>Object Placement: Computers join a generic container by default; they must be moved to the correct OU to receive specific policies</li>
 <li><strong>Verification: A successful lab isn't finished until the "Deny" or "Restriction" is visually confirmed on the client machine</li>
 </ul>
@@ -135,7 +135,7 @@ Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("127.0.0.1", "8.8
 <h1>Next Steps - Part IV</h1>
 <ul>
 In Part IV, I will focus on:
-<li><strong>Setting up file shares and organizing department-specific folders for HR and IT</li>
+<li><strong>Setting up file shares and organizing department specific folders for HR and IT</li>
 <li><strong>Configuring NTFS and share permissions to manage folder visibility and user access levels</li>
 <li><strong>Automating network drive mapping using Group Policy Preferences for domain users</li>
 <li><strong>Implementing storage quotas and file screening with File Server Resource Manager (FSRM) to manage server space</li>
