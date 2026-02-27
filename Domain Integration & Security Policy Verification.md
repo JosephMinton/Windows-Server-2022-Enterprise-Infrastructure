@@ -23,193 +23,120 @@ This lab is Part III of a multi-part Active Directory home lab series. This phas
 - <b>Command Prompt (CMD)</b>
 - <b>PowerShell</b>
 
-<p align="center">
-First visual of Group Policy Management: <br/>
-<img src="https://i.imgur.com/wjQv2oA.png" alt="Disk Sanitization Steps"/>
-<br />
-<h1>I. Password Policy (New GPO)</h1><br/>
- <p>Enforce strong password requirements across the domain to improve security posture.</p>
-<h2>Configuration Path</h2>
-<p>Computer Configuration</p>
-<ul>
-<li><strong>Policies</li>
-<li><strong>Windows Settings</li>
-<li><strong>Security Settings</li>
-<li><strong>Account Policies</li>
-<li><strong>Password Policy</li>
-</ul>
-<img src="https://i.imgur.com/sAkdpA7.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/s17w6r8.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/sm6VB0Q.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/dhzPe5D.png" alt="Disk Sanitization Steps"/>
-<br />
-<h2>Notes</h2>
-<p>Password policies are configured under Computer Configuration because they apply at the domain level rather than per user.
-Using Policies ensures the settings cannot be overridden by end users.
+<h1>I. Server Side Static IP & DNS Configuration</h1><br/>
+ <p>Establishing a reliable anchor for the network by assigning a static IP to the Domain Controller. Servers must have static IPs to prevent client disconnection if a DHCP lease changes.</p>
 
-This reinforces centralized credential security and aligns with baseline enterprise password standards.</p>
+<p>Action Taken Because the Settings app and Control Panel were inaccessible due to GPO restrictions implemented in Part II, I utilized PowerShell to configure the network interface.</p>
+<ul>
+<li><strong>Discovery: Identified the network adapter index (ifIndex 6) using Get-NetAdapter.</li>
+<li><strong>Final Configuration: Successfully applied the static IP, Default Gateway, and DNS servers.</li>
+<li><strong>DNS Resolution: Pointed the Primary DNS to the loopback address (127.0.0.1) so the server resolves domain queries through itself.</li>
+</ul>
+<img src="https://i.imgur.com/f8ZVEUP.png"/>
+<br />
+<img src="https://i.imgur.com/eqwjvWs.png"/>
+<br />
+<h2>What Went Wrong: Technical Troubleshooting Log</h2>
+<p>During the initial setup, a configuration error occurred while manually inputting network parameters. This section details the identification and resolution of that issue.
+
+Problem Encountered An incorrect IP address was initially assigned, and the Default Gateway was omitted during the first New-NetIPAddress attempt. This resulted in an "ambiguous" state where the adapter had multiple IP assignments and no routing path to the internet.</p>
+<img src="https://i.imgur.com/hsZYLDe.png"/>
+<br />
  <br><br>
+<p>Remediation Workflow Instead of using the non-functional GUI, I resolved the conflict via the following PowerShell sequence:</p>
+<p>1. Identify the incorrect assignment
+ipconfig /all 
 
-<h1>II. Drive Mapping</h1>
+2. Remove the incorrect IP to clear the interface conflict
+Remove-NetIPAddress -InterfaceIndex 6 -IPAddress [Incorrect_IP]
 
-<p>Automatically map network drives for users upon login.</p>
-<h2>Configuration Path</h2>
-<p>User Configuration</p>
-<ul>
-<li><strong>Preferences</strong></li>
-<li><strong>Windows Settings</strong></li>
-<li><strong>Drive Maps</strong></li>
-</ul>
-<img src="https://i.imgur.com/M1w0pOp.png" alt="Disk Sanitization Steps"/>
-<br />
-<h2>Notes</h2>
-<p>Drive mapping was configured using Preferences rather than Policies because:</p>
-<ul>
-<li><strong>Preferences allow flexibility</strong></li>
-<li><strong>Settings can be changed or removed without strict enforcement</strong></li>
-<li><strong>This mirrors real world environments where mapped drives may vary by role or department</strong></li>
-</ul>
-<p>This demonstrates the difference between user convenience configurations and security enforcement.</p>
+3. Re-apply the correct static IP with the Default Gateway included
+New-NetIPAddress -InterfaceIndex 6 -IPAddress 192.168.x.x -PrefixLength 24 -DefaultGateway 192.168.x.1
 
-<h1>III. Desktop Wallpaper Policy</h1>
-
-<p>Set a default desktop wallpaper for all users and prevent users from changing it.</p>
-<h2>Configuration Path</h2>
-<p>User Configuration</p>
-<ul>
-<li><strong>Policies</strong></li>
-<li><strong>Administrative Templates </strong></li>
-<li><strong>Desktop</strong></li>
-<li><strong>Desktop Wallpaper</strong></li>
-</ul>
-<img src="https://i.imgur.com/riLGrof.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/LtzSohI.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/Uij1oTM.png" alt="Disk Sanitization Steps"/>
-<br />
-<h2>Configuration Details</h2>
-<ul>
-<li><strong>Enabled Desktop Wallpaper policy</strong></li>
-<li><strong>Set a defined file path for the wallpaper location</strong></li>
-<li><strong>Configured wallpaper style to Fill</strong></li>
-<li><strong>Applied and enforced the policy</strong></li>
-</ul>
-<h2>Notes</h2>
-<p>This policy was intentionally placed under User Configuration → Policies because:</p>
-<ul>
-<li><strong>The setting is user facing</strong></li>
-<li><strong>Administrative enforcement is required</strong></li>
-<li><strong>Users should not be able to override or modify the wallpaper</strong></li>
-</ul>
-<p>This mirrors corporate branding and compliance scenarios in enterprise environments.</p>
-
-<h1>IV. Restrict Access to Control Panel</h1>
-<p>Prevent users from accessing the Control Panel and PC Settings.</p>
-<h2>Configuration Path</h2>
-<p>User Configuration</p>
-<ul>
-<li><strong>Policies</li>
-<li><strong>Administrative Templates</li>
-<li><strong>Control Panel</li>
-<li><strong>Prohibit access to Control Panel and PC settings</li>
-</ul>
-<img src="https://i.imgur.com/zoK3yiB.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/U5qeD21.png" alt="Disk Sanitization Steps"/>
-<br />
-<h2>Configuration Details</h2>
-<ul>
-<li><strong>Enabled “Prohibit access to Control Panel and PC settings”</strong></li>
-<li><strong>Applied and enforced the GPO</strong></li>
-</ul>
-<h2>Notes</h2>
-<p>This GPO was deliberately named after its function to maintain clarity and manageability.
-Using Policies ensures the restriction is enforced and cannot be bypassed by the user.
-
-This reflects common enterprise security practices where users are limited from altering system configurations.</p>
-
- <br/>
- By assigning the ticket to another specific higher tier, the ticket would be escalated.<br/>
-
-
-<h1>V. Disable USB Storage</h1>
-<p>Prevent the use of USB storage devices to reduce data exfiltration risk.</p>
-<h2>Configuration Path</h2>
-<p>Computer Configuration</p>
-<ul>
-<li><strong>Policies</li>
-<li><strong>Administrative Templates</li>
-<li><strong>Control Panel</li>
-<li><strong>System</li>
-<li><strong>Removable Storage Access</li>
-</ul>
-<img src="https://i.imgur.com/oee84Co.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/Y4qUIBM.png" alt="Disk Sanitization Steps"/>
-<br />
-<img src="https://i.imgur.com/P5RLxgd.png" alt="Disk Sanitization Steps"/>
-<br />
+4. Re-configure DNS for Active Directory functionality
+Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("127.0.0.1", "8.8.8.8")
 </p>
-<h2>Configuration Details</h2>
-<ul>
-<li><strong>Enabled “Prohibit access to Control Panel and PC settings”</strong></li>
-<li><strong>Applied and enforced the GPO</strong></li>
-</ul>
-<h2>Notes</h2>
-<p>This policy was applied under Computer Configuration because:</p>
-<ul>
-<li><strong>The restriction applies to the machine itself, not individual users</strong></li>
-<li><strong>USB access should remain disabled regardless of who logs in</strong></li>
-</ul>
-<p>Using Policies ensures the setting cannot be overridden locally, which aligns with high security environments.</p>
-
-This reflects common enterprise security practices where users are limited from altering system configurations.</p>
-
-<h1>VI. Account Lockout Policy</h1>
-<p>Mitigate brute force login attempts by enforcing account lockout rules.</p>
-<h2>Configuration Path</h2>
-<p>Computer Configuration</p>
-<ul>
-<li><strong>Policies</li>
-<li><strong>Windows Settings</li>
-<li><strong>Security Settings</li>
-<li><strong>Account Policies</li>
-<li><strong>Account Lockout Policy</li>
-</ul>
- <img src="https://i.imgur.com/8tPdpU3.png" alt="Disk Sanitization Steps"/>
+ <img src="blob:https://imgur.com/dc395571-bf85-4d62-a22f-aed4e16a626f"/>
 <br />
-<h2>Configuration Details</h2>
-<ul>
-<li><strong>Account lockout threshold: 5 invalid logon attempts</strong></li>
-<li><strong>Account lockout duration: 30 minutes</li>
-<li><strong>Reset account lockout counter after: 30 minutes</li>
-</ul>
 <h2>Notes</h2>
-<p>This configuration balances:</p>
+<p>The use of Remove-NetIPAddress was critical here. PowerShell prevents "overwriting" an IP if a conflict exists on the same interface index. This workflow demonstrates the ability to audit network settings and perform manual remediation when standard management tools are restricted.</p>
+
+<h1>II. Client-Side DNS Alignment</h1>
+
+<p>Configuring the Windows 11 client to "see" the Domain Controller.</p>
+<h2>Action Taken</h2>
 <ul>
-<li><strong>Security against brute force attacks</li>
-<li><strong>Usability to avoid excessive lockouts from accidental failures</li>
+<li><strong>Network & Internet Settings > Advanced Network Settings > IPv4</strong></li>
+<li><strong>Preferred DNS: Set to the exact static IP of the Windows Server (e.g., 192.168.42.128)</strong></li>
 </ul>
-<p>This is a foundational security control commonly found in real world domain environments.</p>
+<img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+<br />
+<img src="https://i.imgur.com/z9pxwxt.png"/>
+<br />
+<h2>Notes</h2>
+<p>The client cannot join the domain if it cannot find it. By pointing the client's DNS directly to the Domain Controller, we allow it to resolve the domain name (e.g., EastCharmer.local) to the server's IP.</p>
+
+
+<h1>III. Computer Domain Join</h1>
+
+<p>Executing the formal handshake between the workstation and the domain infrastructure.</p>
+<h2>Configuration Path</h2>
+<ul>
+<li><strong>Settings > About > Advanced System Settings > Computer Name > Change</strong></li>
+<li><strong>Member of: Selected "Domain" and entered the FQDN (Fully Qualified Domain Name)</strong></li>
+<li><strong>Authentication: Entered Domain Admin credentials to authorize the join</strong></li>
+</ul>
+<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<br />
+
+<h2>Notes</h2>
+<p>This step creates a "Computer Object" in Active Directory. After the mandatory reboot, the machine is no longer a standalone entity but a managed asset of the enterprise.</p>
+
+
+<h1>IV. GPO Linking & OU Management</h1>
+<p>Organizing the new asset into the correct "bucket" to receive security policies.</p>
+<h2>Action Taken</h2>
+<ul>
+<li><strong>Active Directory Users and Computers (ADUC): Moved the new computer from the "Computers" container to the targeted OU (e.g., USA > Computers)</li>
+<li><strong>Group Policy Management Console (GPMC): Linked the Part II GPOs (Control Panel Restriction, Wallpaper, etc.) to the respective User and Computer OUs</li>
+</ul>
+ 
+<img src="https://i.imgur.com/4Pz1jvr.png"/>
+<br />
+<img src="https://i.imgur.com/K0qNjrS.png"/>
+<br />
+
+<h2>Notes</h2>
+<p>Policies do not apply just because they exist. They must be "Linked" to an OU, and the user/computer objects must be physically moved into that OU within ADUC for the link to take effect.</p>
+
+
+<h1>V. Policy Enforcement & Verification</h1>
+<p>Manually triggering the Handshake to verify security controls are active.</p>
+<h2>Action Taken</h2>
+<ul>
+<li><strong>Command: Executed gpupdate /force in the client Command Prompt</li>
+<li><strong>Verification: Attempted to open the Control Panel to test the "Restrict Access" policy</li>
+</ul>
+<img src="https://i.imgur.com/sJpegQA.png"/>
+<br />
+<img src="https://i.imgur.com/mDIEvAX.png"/>
+<br />
+
+<h2>Notes</h2>
+<p>While GPOs refresh automatically every 90 minutes, gpupdate /force is the essential Tier 1 troubleshooting tool to verify changes immediately. The successful block of the Control Panel confirms that our Part II security governance is functioning as intended.</p>
 
 <h1>Key Takeaways</h1>
 <ul>
-<li><strong>GPO placement matters: User vs Computer Configuration determines scope and impact</li>
-<li><strong>Policies enforce non-negotiable rules, while Preferences allow flexibility</li>
-<li><strong>Naming GPOs clearly improves long term manageability</li>
-<li><strong>Many enterprise security controls are implemented silently through GPOs</li>
-<li><strong>Small configuration choices (like USB access or lockout thresholds) have large security implications</li>
+<li><strong>DNS is the Foundation: 90% of domain join failures are DNS-related; the client must point to the DC</li>
+<li><strong>Object Placement: Computers join a generic container by default; they must be moved to the correct OU to receive specific policies</li>
+<li><strong>Verification: A successful lab isn't finished until the "Deny" or "Restriction" is visually confirmed on the client machine</li>
 </ul>
 
-<h1>Next Steps – Part III</h1>
+<h1>Next Steps - Part IV</h1>
 <ul>
-In Part III, I will focus on:
-<li><strong>Applying and testing GPOs on domain joined machines</li>
-<li><strong>Verifying policy behavior using real user and computer logins</li>
-<li><strong>Testing computer domain join behavior and how GPOs apply during and after the join process</li>
+In Part IV, I will focus on:
+<li><strong>Setting up file shares and organizing department-specific folders for HR and IT</li>
+<li><strong>Configuring NTFS and share permissions to manage folder visibility and user access levels</li>
+<li><strong>Automating network drive mapping using Group Policy Preferences for domain users</li>
+<li><strong>Implementing storage quotas and file screening with File Server Resource Manager (FSRM) to manage server space</li>
 </ul>
-This next phase will validate that the policies configured in this lab are functioning as intended in practice, not just configured correctly.
