@@ -31,16 +31,16 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <ul>
 <li><strong>Directory Creation: Created a folder named "shared" in the Local Disk (C:) path.</li>
 
-<img src="https://i.imgur.com/f8ZVEUP.png"/>
+<img src="https://i.imgur.com/RsQyaPN.png"/>
 <br />
   
 <li><strong>Share Level Configuration: Navigated to Properties > Sharing > Advanced Sharing and enabled "Share this folder".</li>
 <li><strong>Access Control: Added "Domain Users" to the permissions list and set them to Read access.</li>
   <li><strong> - Discovery: Share permissions apply only at the folder level and do not affect individual subfolders or files.</li>
-    <img src="https://i.imgur.com/eqwjvWs.png"/>
+    <img src="blob:https://imgur.com/640bdbfc-c082-43ac-812b-37212c0c0d75"/>
 <br />
 <li><strong>NTFS Security Integration: Switched to the Security tab to configure detailed NTFS permissions, which apply to all subfolders and files within the directory.</li>
-  <img src="https://i.imgur.com/eqwjvWs.png"/>
+  <img src="https://i.imgur.com/FgBqFxj.png"/>
 <br />
 </ul>
 
@@ -51,25 +51,25 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <p>I transitioned from a session-based manual map to a persistent GPO-driven network share to ensure all users maintain access after reboots.</p>
 <ul>
 <li><strong>Hostname Identification: Utilized the hostname command in the Server's CMD to identify the server name required for the UNC path.</strong></li>
-  <img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+  <img src="https://i.imgur.com/y3oyJ14.png"/>
 <br />
 <li><strong>Client Verification: On the Windows client, I mapped the S: drive to \\ServerName\shared to confirm the folder was accessible over the network.</strong></li>
-  <img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+  <img src="https://i.imgur.com/aFFyZYb.png"/>
 <br />
-  <img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+  <img src="https://i.imgur.com/5cWFiTf.png"/>
 <br />
 <li><strong>GPO Automation: Because manual maps are not persistent after a reboot, I created a GPO named "map drives".</strong></li>
 <li><strong>Configuration: Under User Configuration > Preferences > Windows Settings > Drive Maps, I defined a new mapped drive with the server path and assigned it to drive letter S:</strong></li>
-  <img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+  <img src="https://i.imgur.com/uXqzBFO.png"/>
 <br />
 
-<img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+<img src="https://i.imgur.com/mIwDFLm.png"/>
 <br />
 <li><strong>Final Deployment: Linked the GPO to the Users OU and ran gpupdate /force on the client to automate the mapping process.</strong></li>
 
-<img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+<img src="https://i.imgur.com/aVQA7Jd.png"/>
 <br />
-<img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+<img src="https://i.imgur.com/CaQMHer.png"/>
 <br />
 </ul>
 
@@ -85,32 +85,33 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <ul>
 <li><strong>Tool Installation: Utilized Add Roles and Features in Server Manager to install File Server Resource Manager under File and Storage Services.</strong></li>
 
-<img src="blob:https://imgur.com/1e109140-afe3-4580-8959-2014ad1f22de"/>
+<img src="blob:https://imgur.com/e7866e3d-5261-4884-b75d-debda71d3981"/>
 <br />
   
 <li><strong>Quota Management: Created a custom quota for the "shared" folder with a 10GB limit.</strong></li>
 <li><strong>Threshold Configuration: Set an 80% notification threshold to alert administrators before the storage limit is reached.</strong></li>
 
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src="https://i.imgur.com/jeIl46d.png"/>
 <br />
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src="https://i.imgur.com/zkiiEwe.png"/>
 <br />
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src="https://i.imgur.com/PbFS38D.png"/>
 <br />
 <li><strong>Quota Management: Created a custom quota for the "shared" folder with a 10GB limit.</strong></li>
 <li><strong>Threshold Configuration: Set an 80% notification threshold to alert administrators before the storage limit is reached.</strong></li>
 
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src="<img width="821" height="281" alt="image" src="https://github.com/user-attachments/assets/4c367e43-f857-4315-93e4-d9e9d67783ca" />
+"/>
 <br />
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src=""/>
 <br />
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src=""/>
 <br />
 <li><strong>File Screening: Implemented a screen to block Audio and Video files, Executable files, and Image files.</strong></li>
 <li><strong>Final Configuration: Restricted the folder to text and document file types to prevent multimedia files from consuming excessive storage space.</strong></li>
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src=""/>
 <br />
-<img src="https://i.imgur.com/P0uMEJ1.png"/>
+<img src=""/>
 <br />
 
 
