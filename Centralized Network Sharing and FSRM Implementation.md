@@ -37,7 +37,7 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <li><strong>Share Level Configuration: Navigated to Properties > Sharing > Advanced Sharing and enabled "Share this folder".</li>
 <li><strong>Access Control: Added "Domain Users" to the permissions list and set them to Read access.</li>
   <li><strong> - Discovery: Share permissions apply only at the folder level and do not affect individual subfolders or files.</li>
-    <img src="blob:https://imgur.com/640bdbfc-c082-43ac-812b-37212c0c0d75"/>
+    <img src="https://i.imgur.com/utxT80n.png"/>
 <br />
 <li><strong>NTFS Security Integration: Switched to the Security tab to configure detailed NTFS permissions, which apply to all subfolders and files within the directory.</li>
   <img src="https://i.imgur.com/FgBqFxj.png"/>
@@ -85,33 +85,21 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <ul>
 <li><strong>Tool Installation: Utilized Add Roles and Features in Server Manager to install File Server Resource Manager under File and Storage Services.</strong></li>
 
-<img src="blob:https://imgur.com/e7866e3d-5261-4884-b75d-debda71d3981"/>
-<br />
-  
 <li><strong>Quota Management: Created a custom quota for the "shared" folder with a 10GB limit.</strong></li>
 <li><strong>Threshold Configuration: Set an 80% notification threshold to alert administrators before the storage limit is reached.</strong></li>
 
-<img src="https://i.imgur.com/jeIl46d.png"/>
+<img src="https://i.imgur.com/T9Cfk09.png"/>
 <br />
-<img src="https://i.imgur.com/zkiiEwe.png"/>
+<img src="https://i.imgur.com/8P87RwX.png"/>
 <br />
-<img src="https://i.imgur.com/PbFS38D.png"/>
+<img src="https://i.imgur.com/JCaeiLL.png"/>
 <br />
-<li><strong>Quota Management: Created a custom quota for the "shared" folder with a 10GB limit.</strong></li>
-<li><strong>Threshold Configuration: Set an 80% notification threshold to alert administrators before the storage limit is reached.</strong></li>
 
-<img src="<img width="821" height="281" alt="image" src="https://github.com/user-attachments/assets/4c367e43-f857-4315-93e4-d9e9d67783ca" />
-"/>
-<br />
-<img src=""/>
-<br />
-<img src=""/>
-<br />
 <li><strong>File Screening: Implemented a screen to block Audio and Video files, Executable files, and Image files.</strong></li>
 <li><strong>Final Configuration: Restricted the folder to text and document file types to prevent multimedia files from consuming excessive storage space.</strong></li>
-<img src=""/>
+<img src="https://i.imgur.com/yoYa5TB.png"/>
 <br />
-<img src=""/>
+<img src="https://i.imgur.com/5o8RFjj.png"/>
 <br />
 
 
@@ -123,16 +111,7 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 
 <h1>Key Takeaways</h1>
 <ul>
-<li><strong>DNS is the Foundation: 90% of domain join failures are DNS related; the client must point to the DC</li>
-<li><strong>Object Placement: Computers join a generic container by default; they must be moved to the correct OU to receive specific policies</li>
-<li><strong>Verification: A successful lab isn't finished until the Deny or Restriction is visually confirmed on the client machine</li>
-</ul>
-
-<h1>Next Steps - Part IV</h1>
-<ul>
-In Part IV, I will focus on:
-<li><strong>Setting up file shares and organizing department specific folders for HR and IT</li>
-<li><strong>Configuring NTFS and share permissions to manage folder visibility and user access levels</li>
-<li><strong>Automating network drive mapping using Group Policy Preferences for domain users</li>
-<li><strong>Implementing storage quotas and file screening with File Server Resource Manager (FSRM) to manage server space</li>
+<li><strong>Permissions are Multi-Layered: Share permissions provide basic entry at the folder level, but NTFS permissions are required for granular, persistent control over individual subfolders and files</li>
+<li><strong>Automation Equals Persistence: Manual drive mapping is session-based and disappears after a reboot; Group Policy Preferences must be used to ensure network shares are automatically and reliably mapped for every user login</li>
+<li><strong>Governance Prevents Exhaustion: Server storage is finite and expensive; utilizing FSRM to implement quotas and file screening is essential to prevent storage depletion from unauthorized or oversized multimedia files</li>
 </ul>
