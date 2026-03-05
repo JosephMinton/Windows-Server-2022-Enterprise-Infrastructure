@@ -36,9 +36,9 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 <img src="https://i.imgur.com/RsQyaPN.png"/>
 <br />
   <br><br>
-<li><strong>Share Level Configuration: Navigated to Properties > Sharing > Advanced Sharing and enabled "Share this folder".</li>
-<li><strong>Access Control: Added "Domain Users" to the permissions list and set them to Read access.</li>
-  <li><strong> - Discovery: Share permissions apply only at the folder level and do not affect individual subfolders or files.</li> <br><br>
+<p>Share Level Configuration: Navigated to Properties > Sharing > Advanced Sharing and enabled Share this folder.</p>
+<p>Access Control: Added "Domain Users" to the permissions list and set them to Read access.</p>
+  <li><strong>Discovery: Share permissions apply only at the folder level and do not affect individual subfolders or files.</li> <br><br>
     <img src="https://i.imgur.com/utxT80n.png"/>
 <br />
    <br><br>
@@ -54,7 +54,7 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 
 <p>Verifying client-side connectivity by mapping the network resource to a local drive letter. While manual mapping is useful for temporary access, Group Policy Objects (GPOs) are used for permanent, automated enterprise wide deployment.</p>
 <h2>Action Taken</h2>
-<p>I transitioned from a session-based manual map to a persistent GPO-driven network share to ensure all users maintain access after reboots.</p>
+<p>I transitioned from a session based manual map to a persistent GPO driven network share to ensure all users maintain access after reboots.</p>
 <ul>
 <li><strong>Hostname Identification: Utilized the hostname command in the Server's CMD to identify the server name required for the UNC path.</strong></li> <br><br>
   <img src="https://i.imgur.com/y3oyJ14.png"/>
@@ -118,7 +118,7 @@ This lab is Part IV of a multipart Active Directory home lab series. This phase 
 
 <h1>Key Takeaways</h1>
 <ul>
-<li><strong>Permissions are Multi-Layered: Share permissions provide basic entry at the folder level, but NTFS permissions are required for granular, persistent control over individual subfolders and files</li>
-<li><strong>Automation Equals Persistence: Manual drive mapping is session-based and disappears after a reboot; Group Policy Preferences must be used to ensure network shares are automatically and reliably mapped for every user login</li>
+<li><strong>Permissions are Multi-layered: Share permissions provide basic entry at the folder level, but NTFS permissions are required for granular, persistent control over individual subfolders and files</li>
+<li><strong>Automation Equals Persistence: Manual drive mapping is session based and disappears after a reboot; Group Policy Preferences must be used to ensure network shares are automatically and reliably mapped for every user login</li>
 <li><strong>Governance Prevents Exhaustion: Server storage is finite and expensive; utilizing FSRM to implement quotas and file screening is essential to prevent storage depletion from unauthorized or oversized multimedia files</li>
 </ul>
