@@ -20,9 +20,9 @@ This project demonstrates the deployment of a Windows Server Active Directory en
 
 <h2>Languages and Utilities Used</h2>
 
- <b>VMware Workstation</b> 
- <b>Server Windows 2022</b>
- <b>Active Directory</b>
+ - <b>VMware Workstation</b> 
+ - <b>Server Windows 2022</b>
+ - <b>Active Directory</b>
 
 <h2>Environments Used </h2>
 
